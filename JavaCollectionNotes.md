@@ -75,10 +75,137 @@ If increment is specified, Vector will expand according to it in each allocation
 
 **Queue :** Typically order elements in FIFO order except exceptions like PriorityQueue.  
 
+The **java.util.Queue** is a subtype of **java.util.Collection** interface. It is an ordered list of objects with its use limited to inserting elements at the end of list and deleting elements from the start of list i.e. it follows FIFO principle.
+Since it is an interface, we need a concrete class during its declaration. There are many ways to initialize a Queue object, most common being -
+  As a Priority Queue
+  As a LinkedList
+Please note that both the implementations are not thread safe. PriorityBlockingQueue is one alternative implementation if you need a thread safe implementation.
+
+Operations on Queue :
+
+  Add() - Adds an element at the tail of queue. More specifically, at the last of linkedlist if it is used, or according to the priority in case of priority queue implementation.
+  peek() - To view the head of queue without removing it. Returns null if queue is empty.
+  element() - Similar to peek(). Throws NoSuchElementException if queue is empty.
+  remove() - Removes and returns the head of the queue. Throws NoSuchElementException when queue is impty.
+  poll() - Removes and returns the head of the queue. Returns null if queue is empty.
+
+Since it is a subtype of Collections class, it inherits all the methods of it namely size(), isEmpty(), contains() etc.
+
+**PriorityQueue Class**
+To process object in queue based on priority, called PriorityQueue. 
+
+Important points of PriorityQueue:
+  PriorityQueue doesn’t allow null
+  We can’t create PriorityQueue of Objects that are non-comparable
+  The elements of the priority queue are ordered according to their natural ordering, or by a Comparator provided at queue construction time, depending on which constructor is used.
+  The head of this queue is the least element with respect to the specified ordering. If multiple elements are tied for least value, the head is one of those elements — ties are broken arbitrarily.
+  The queue retrieval operations poll, remove, peek, and element access the element at the head of the queue.
+  It inherits methods from AbstractQueue, AbstractCollection, Collection and Object class.
+
 **Deque :** Elements can be inserted and removed at both ends. Allows both LIFO and FIFO. 
 
-**Map :** Contains Key value pairs. Doesn't allow duplicates.  HashMap and TreeMap. TreeMap implements SortedMap.        
+**Deque interface**
+The **java.util.Deque** interface is a subtype of the **java.util.Queue** interface. The Deque is related to the double-ended queue that supports addition or removal of elements from either end of the data structure, it can be used as a queue (first-in-first-out/FIFO) or as a stack (last-in-first-out/LIFO).
+
+Methods of deque:
+    add(element): Adds an element to the tail.
+    addFirst(element): Adds an element to the head.
+    addLast(element): Adds an element to the tail.
+    offer(element): Adds an element to the tail and returns a boolean to explain if the insertion was successful.
+    offerFirst(element): Adds an element to the head and returns a boolean to explain if the insertion was successful.
+    offerLast(element): Adds an element to the tail and returns a boolean to explain if the insertion was successful.
+    iterator(): Returna an iterator for this deque.
+    descendingIterator(): Returns an iterator that has the reverse order for this deque.
+    push(element): Adds an element to the head.
+    pop(element): Removes an element from the head and returns it.
+    removeFirst(): Removes the element at the head.
+    removeLast(): Removes the element at the tail.
+
+**Map :**   
+The **java.util.Map** interface represents a mapping between a key and a value. The Map interface is not a subtype of the Collection interface, therefor it behaves a bit different from rest of the collection types.
+
+Contains Key value pairs. Doesn't allow duplicates. Some allow null key and null value (HashMap and LinkedHashMap) but some not (TreeMap). 
+
+Maps are perfectly for key-value association mapping such as dictionaries. Use Maps when you want to retrieve and update elements by keys, or perform lookups by keys like A map of managers and employees. Each manager (Key) is associated with list of employees (Value) he manages.
 
 The difference between Set and Map interface is, in Set we have only keys, but in Map, we have key value pairs.
+
+**Java.util.HashMap :**
+
+HashMap don’t allow duplicate keys, but allows duplicate values. That means A single key can’t contain more than 1 value but more than 1 key can contain a single value. HashMap allows null key also but only once and multiple null values. This class makes no guarantees as to the order of the map; in particular, it does not guarantee that the order will remain constant over time. It is roughly simillar to HashTable but is unsynchronized.
+
+Internally HashMap contains an array of Node. and a node is represented as a class which contains 4 fields :
+
+  int hash
+  K key
+  V value
+  Node next
+
+node is containing a reference of it own object, it is linked list. 
+
+    Node<K,V>
+    int hash
+    K key
+    V value
+    Node<K,V> next
+
+**Time complexity of HashMap**
+HashMap provides constant time complexity for basic operations, get and put, if hash function is properly written and it disperses the elements properly among the buckets. Iteration over HashMap depends on the capacity of HashMap and number of key-value pairs. Basically it is directly proportional to the capacity + size. Capacity is the number of buckets in HashMap. So it is not a good idea to keep high number of buckets in HashMap initially.
+
+**Performance of HashMap**
+Performance of HashMap depends on 2 parameters:
+
+  Initial Capacity
+  Load Factor
+
+Capacity is simply the number of buckets where and Initial Capacity is the capacity of HashMap instance when it is created. The Load Factor is a measure that when rehashing should be done. Rehashing is a process of increasing the capacity. In HashMap capacity is multiplied by 2. 
+
+Load Factor is also a measure that what fraction of the HashMap is allowed to fill before rehashing. When the number of entries in HashMap increases the product of current capacity and load factor the capacity is increased that is rehashing is done. If we keep the initial capacity higher then rehashing will never be done. But by keeping it higher it increases the time complexity of iteration. So it should be choosed very cleverly to increase the performance. 
+
+The expected number of values should be taken into account to set initial capacity. Most generally preffered load factor value is 0.75 which provides a good deal between time and space costs. Load factor’s value varies between 0 and 1.
+
+**Synchronized HashMap**
+HashMap is unsynchronized i.e. multiple threads can access it simultaneously. If multiple threads access this class simultaneously and at least one thread manipulates it structurally then it is necessary to make it synchronized externally. It is done by synchronizing some object which enzapsulates the map. If No such object exists then it can be wrapped around **Collections.synchronizedMap()** to make HashMap synchronized and avoid accidental unsynchronized access.
+
+**HashMap and TreeMap**
+
+    HashMap:  HashMap<K, V> hmap = new HashMap<K, V>();
+
+HashMap does not maintain any order neither based on key nor on basis of value, If we want the keys to be maintained in a sorted order, we need to use TreeMap.
+
+Complexity: get/put/containsKey() operations are O(1) in average case but we can’t guarantee that since it all depends on how much time does it take to compute the hash.
+
+    TreeMap<K, V> hmap = new TreeMap<K, V>();
+
+TreeMap can be a bit handy when we only need to store unique elements in a sorted order. Java.util.TreeMap uses a red-black tree in the background which makes sure that there are no duplicates; additionally it also maintains the elements in a sorted order.
+
+For operations like add, remove, containsKey, time complexity is O(log n where n is number of elements present in TreeMap.
+
+TreeMap always keeps the elements in a sorted(increasing) order, while the elements in a HashMap have no order. TreeMap also provides some cool methods for first, last, floor and ceiling of keys.
+
+HashMap implements Map interface while TreeMap implements SortedMap interface. A Sorted Map interface is a child of Map.
+
+HashMap implements Hashing, while TreeMap implements Red-Black Tree(a Self Balancing Binary Search Tree). Therefore all differences between Hashing and Balanced Binary Search Tree apply here.
+
+Both HashMap and TreeMap have their counterparts HashSet and TreeSet. HashSet and TreeSet implement Set interface. In HashSet and TreeSet, we have only key, no value, these are mainly used to see presence/absence in a set.
+
+**Hashmap vs Hashtable**
+  1. HashMap is non synchronized. It is not-thread safe and can’t be shared between many threads without proper synchronization code whereas Hashtable is synchronized. It is thread-safe and can be shared with many threads.
+  2. HashMap allows one null key and multiple null values whereas Hashtable doesn’t allow any null key or value.
+  3. HashMap is generally preferred over HashTable if thread synchronization is not needed
+
+Why HashTable doesn’t allow null and HashMap does?
+
+To successfully store and retrieve objects from a HashTable, the objects used as keys must implement the hashCode method and the equals method. Since null is not an object, it can’t implement these methods. HashMap is an advanced version and improvement on the Hashtable. HashMap was created later.
+
+
+    
+    
+
+
+
+
+
+
                              
   
