@@ -89,9 +89,7 @@ Methods of NavigableSet (Not in SortedSet):
     pollFirst() : Retrieve and remove the first least element. Or return null if there is no such element.
     pollLast() : Retrieve and remove the last highest element. Or return null if there is no such element.
 
-
-
-                                                  **List:** 
+**List:** 
 
 Can contain duplicates and elements are ordered. List preserves the insertion order, so it allows positional access and insertion of elemets. List interface implemented by LinkedList (linked list based) and ArrayList (dynamic array based), Vector, Stack classes. 
 
@@ -115,7 +113,7 @@ If increment is specified, Vector will expand according to it in each allocation
     Object elementData[]: Array that holds the vector is stored in it.
 
                                             
-                                            **Queue:** 
+**Queue:** 
 
 Typically order elements in FIFO order except exceptions like PriorityQueue.  
 
@@ -173,8 +171,7 @@ Methods of deque:
     removeFirst(): Removes the element at the head.
     removeLast(): Removes the element at the tail.
 
-
-                                                    **Map:**   
+**Map:**   
 
 The **java.util.Map** interface represents a mapping between a key and a value. The Map interface is not a subtype of the Collection interface, therefor it behaves a bit different from rest of the collection types.
 
