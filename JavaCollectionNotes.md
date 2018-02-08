@@ -89,8 +89,9 @@ Methods of NavigableSet (Not in SortedSet):
     pollFirst() : Retrieve and remove the first least element. Or return null if there is no such element.
     pollLast() : Retrieve and remove the last highest element. Or return null if there is no such element.
 
-                                              
-                                              **List:** 
+
+
+                                                  **List:** 
 
 Can contain duplicates and elements are ordered. List preserves the insertion order, so it allows positional access and insertion of elemets. List interface implemented by LinkedList (linked list based) and ArrayList (dynamic array based), Vector, Stack classes. 
 
